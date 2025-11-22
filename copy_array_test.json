@@ -1,0 +1,12 @@
+[
+    {"op": "LC", "const": 100, "addr": 10},
+    {"op": "LC", "const": 200, "addr": 11},
+    {"op": "LC", "const": 300, "addr": 12},
+
+    {"op": "RM", "src": 10, "dst": 20},
+    {"op": "RM", "src": 11, "dst": 21},
+    {"op": "RM", "src": 12, "dst": 22},
+
+    {"op": "LC", "const": 30, "addr": 50},
+    {"op": "WM", "src": 10, "dst": 50}
+]
