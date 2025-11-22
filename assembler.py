@@ -3,7 +3,7 @@ import json
 import pprint
 import sys
 
-# --- КОНСТАНТЫ ВАРИАНТА №26 ---
+# КОНСТАНТЫ ВАРИАНТА №26
 
 INSTRUCTION_SIZE = 11
 
