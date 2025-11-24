@@ -19,6 +19,19 @@ DATA_WORD_SIZE = 4
 MEMORY_SIZE = 1024
 
 
+# ФУНКЦИЯ ALU (Требование 1 Этапа 4)
+
+def bitreverse(n, width=32):
+    """Инвертирует биты в числе n в пределах заданной ширины (width)."""
+    result = 0
+    for i in range(width):
+        # Если i-й бит в n установлен
+        if (n >> i) & 1:
+            # Устанавливаем бит на позиции (width - 1 - i) в результате
+            result |= (1 << (width - 1 - i))
+    return result
+
+
 # ДЕКОДИРОВАНИЕ
 
 def decode_instruction(word_bytes):
@@ -98,23 +111,20 @@ class UVMInterpreter:
         return self.memory
 
     def _execute_instruction(self, instr):
-        """Выполняет команды LC, RM, WM (Требование 5 Этапа 3)."""
+        """Выполняет команды LC, RM, WM, BR."""
         op = instr['op']
         B = instr['B']
         C = instr['C']
 
-        if op == "LC":  # LoadConst: mem[C] = B
-            # LC: B=Константа, C=Адрес.
+        if op == "LC":
             if 0 <= C < MEMORY_SIZE:
                 self.memory[C] = B
 
-        elif op == "RM":  # ReadMem: mem[C] = mem[B]
-            # RM: B=Адрес источника, C=Адрес назначения.
+        elif op == "RM":
             if 0 <= B < MEMORY_SIZE and 0 <= C < MEMORY_SIZE:
                 self.memory[C] = self.memory[B]
 
-        elif op == "WM":  # WriteMem: mem[mem[C]] = mem[B]
-            # WM: B=Адрес значения, C=Адрес адреса назначения.
+        elif op == "WM":
             if 0 <= B < MEMORY_SIZE and 0 <= C < MEMORY_SIZE:
                 value_at_B = self.memory[B]
                 target_address = self.memory[C]
@@ -124,8 +134,30 @@ class UVMInterpreter:
                 else:
                     print(f"Ошибка WM: Недопустимый косвенный адрес {target_address}")
 
-        elif op == "BR":
-            pass  # Реализация в Этапе 4
+        elif op == "BR":  # bitreverse (A=9)
+            D = instr['D']
+
+            print(f"[DEBUG BR] Начало: B={B}, C={C}, D={D}. mem[B]={self.memory[B]}.")
+
+            if 0 <= B < MEMORY_SIZE and 0 <= C < MEMORY_SIZE:
+                base_address = self.memory[B]
+                source_address = base_address + D
+
+                print(f"[DEBUG BR] Адрес источника: {source_address} (База: {base_address} + Смещение: {D}).")
+
+                if 0 <= source_address < MEMORY_SIZE:
+                    operand_value = self.memory[source_address]
+                    print(f"[DEBUG BR] Операнд: {operand_value} из mem[{source_address}].")
+
+                    result = bitreverse(operand_value)
+
+                    print(f"[DEBUG BR] Результат: {result}. Запись в mem[{C}].")
+
+                    self.memory[C] = result
+                else:
+                    print(f"Ошибка BR: Недопустимый адрес источника {source_address}")
+            else:
+                print(f"Ошибка BR: Недопустимый адрес B ({B}) или C ({C})")
 
         else:
             raise NotImplementedError(f"Команда {op} не реализована.")
