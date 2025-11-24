@@ -1,0 +1,21 @@
+[
+    {"op": "LC", "const": 1, "addr": 100},
+    {"op": "LC", "const": 2, "addr": 101},
+    {"op": "LC", "const": 3, "addr": 102},
+    {"op": "LC", "const": 4, "addr": 103},
+    {"op": "LC", "const": 5, "addr": 104},
+    {"op": "LC", "const": 6, "addr": 105},
+    {"op": "LC", "const": 7, "addr": 106},
+    {"op": "LC", "const": 8, "addr": 107},
+    {"op": "LC", "const": 9, "addr": 108},
+    {"op": "LC", "const": 100, "addr": 10},
+    {"op": "BR", "src_base": 10, "dst": 200, "offset": 0},
+    {"op": "BR", "src_base": 10, "dst": 201, "offset": 1},
+    {"op": "BR", "src_base": 10, "dst": 202, "offset": 2},
+    {"op": "BR", "src_base": 10, "dst": 203, "offset": 3},
+    {"op": "BR", "src_base": 10, "dst": 204, "offset": 4},
+    {"op": "BR", "src_base": 10, "dst": 205, "offset": 5},
+    {"op": "BR", "src_base": 10, "dst": 206, "offset": 6},
+    {"op": "BR", "src_base": 10, "dst": 207, "offset": 7},
+    {"op": "BR", "src_base": 10, "dst": 208, "offset": 8}
+]

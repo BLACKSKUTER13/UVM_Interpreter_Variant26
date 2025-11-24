@@ -1,0 +1,7 @@
+[
+    {"op": "LC", "const": 100, "addr": 50},
+    {"op": "LC", "const": 55, "addr": 51},
+    {"op": "RM", "src": 50, "dst": 60},
+    {"op": "LC", "const": 70, "addr": 61},
+    {"op": "WM", "src": 51, "dst": 61}
+]
