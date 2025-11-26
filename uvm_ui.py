@@ -6,6 +6,7 @@ from textual.widgets import TextArea, Button, RichLog
 from assembler import translate_to_ir_and_bytecode
 from interpreter import UVMInterpreter
 
+# Для запуска в WEB выполнить: textual serve uvm_ui.py
 
 DEMO_PROGRAM = """
 [
@@ -62,10 +63,9 @@ class UvmGUI(App):
             dump_text = "\n".join(dump_lines)
 
             # Выводим всё разом
-            output.write("--- РЕЗУЛЬТАТ ---")
-            output.write(f"Стек (если есть): []")  # в твоей модели стек не используется
+            output.write("РЕЗУЛЬТАТ")  # в твоей модели стек не используется
             output.write(dump_text)
-            output.write("\n--- БАЙТКОД ---")
+            output.write("\nБАЙТКОД")
             output.write(" ".join(f"0x{b:02X}" for b in bytecode))
             output.write(f"\nКоманд: {len(ir_list)}, байт: {len(bytecode)}")
 
